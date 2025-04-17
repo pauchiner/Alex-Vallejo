@@ -68,7 +68,7 @@ function Login() {
           style: {
             height: "100vh",
             width: "100vw",
-            backgroundImage: "url(public/fondoLogin2.jpg)",
+            backgroundImage: "url(imagenes/fondoLogin2.jpg)",
             // backgroundSize: "cover",
             backgroundPosition: "center",
             display: "flex",
@@ -87,7 +87,7 @@ function Login() {
             },
           },
           m("img", {
-            src: "public/logoRecortado.webp",
+            src: "imagenes/logoRecortado.webp",
             style: { objectFit: "contain", width: "100%", height: "100%" },
           })
         ),
@@ -442,8 +442,8 @@ function botonModoOscuro() {
         },
         m("img", {
           src: modoOscuroOn
-            ? "public/modoOscuro.svg"
-            : "public/modoOscuroBlanco.svg",
+            ? "imagenes/modoOscuro.svg"
+            : "imagenes/modoOscuroBlanco.svg",
           style: {
             width: "clamp(2rem, 5vw, 4rem)",
             height: "auto",
@@ -461,33 +461,33 @@ function botonModoOscuro() {
 function Inicio() {
   let datosBtn = [
     {
-      icono: "public/calendario.svg",
+      icono: "imagenes/calendario.svg",
       texto: "Calendario",
-      iconoModoOscuro: "public/calendarioBlanco.svg",
+      iconoModoOscuro: "imagenes/calendarioBlanco.svg",
       alt: "",
       title: "",
       slug: "/Calendario",
     },
     {
-      icono: "public/galeria.svg",
+      icono: "imagenes/galeria.svg",
       texto: "Galería",
-      iconoModoOscuro: "public/galeriaBlanco.svg",
+      iconoModoOscuro: "imagenes/galeriaBlanco.svg",
       alt: "",
       title: "",
       slug: "/Calendario",
     },
     {
-      icono: "public/buzon.svg",
+      icono: "imagenes/buzon.svg",
       texto: "Buzón de sugerencias",
-      iconoModoOscuro: "public/buzonBlanco.svg",
+      iconoModoOscuro: "imagenes/buzonBlanco.svg",
       alt: "",
       title: "",
       slug: "/Calendario",
     },
     {
-      icono: "public/anuncios.svg",
+      icono: "imagenes/anuncios.svg",
       texto: "Tablón de anuncios",
-      iconoModoOscuro: "public/anunciosBlanco.svg",
+      iconoModoOscuro: "imagenes/anunciosBlanco.svg",
       alt: "",
       title: "",
       slug: "/Calendario",
