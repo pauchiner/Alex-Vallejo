@@ -764,7 +764,11 @@ function Calendario() {
               color: modoOscuroOn ? "black" : "white",
             },
           },
-          m("h1", { style: { marginBottom: "48px" } }, "Calendario"),
+          m(
+            "h1",
+            { style: { marginBottom: "48px" } },
+            "Calendario (cAMBIO DE PRUEBA)"
+          ),
           m("div", {
             id: "calendar",
             style: {
