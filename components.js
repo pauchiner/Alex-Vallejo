@@ -767,7 +767,7 @@ function Calendario() {
           m(
             "h1",
             { style: { marginBottom: "48px" } },
-            "Calendario (cAMBIO DE PRUEBA)"
+            "Calendario (cAMBIO DE BA)"
           ),
           m("div", {
             id: "calendar",
