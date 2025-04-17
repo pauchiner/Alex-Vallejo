@@ -685,36 +685,17 @@ function formatearFecha(fechaStr) {
   return `${diaSemana} ${dia} de ${mes} a las ${horas}:${minutos}`;
 }
 
-function getEventos() {
-  let eventos = [
-    {
-      title: "Día de cine",
-      start: "2025-04-18",
-      color: "blue",
-      ubicacion: "",
-      descripcion: "",
-    },
-    {
-      title: "Taller de cocina",
-      start: "2025-04-19",
-      color: "yellow",
-      ubicacion: "",
-      descripcion: "",
-    },
-    {
-      title: "Taller de cocina",
-      start: "2025-04-19",
-      ubicacion: "",
-      descripcion: "",
-    },
-  ];
-  return eventos;
+async function getEventos() {
+  const response = await fetch("http://localhost:3000/calendario");
+  const events = await response.json();
+  console.log(events);
+  return events;
 }
 
 function Calendario() {
   let calendar;
   return {
-    oncreate: () => {
+    oncreate: async () => {
       const calendarEl = document.getElementById("calendar");
       if (calendarEl) {
         calendar = new FullCalendar.Calendar(calendarEl, {
@@ -728,7 +709,7 @@ function Calendario() {
           },
           headerToolbar: { left: "", center: "title", right: "" },
           footerToolbar: { left: "today", center: "", right: "prev,next" },
-          events: getEventos(),
+          events: await getEventos(),
           eventClick: (info) =>
             console.log(
               `Evento: ${info.event.title}\nFecha: ${formatearFecha(
@@ -764,11 +745,7 @@ function Calendario() {
               color: modoOscuroOn ? "black" : "white",
             },
           },
-          m(
-            "h1",
-            { style: { marginBottom: "48px" } },
-            "Calendario (cAMBIO DE BA)"
-          ),
+          m("h1", { style: { marginBottom: "48px" } }, "Calendario"),
           m("div", {
             id: "calendar",
             style: {
