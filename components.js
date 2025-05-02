@@ -589,6 +589,7 @@ function Calendario() {
             "button",
             {
               style: {
+                fontSize: fontSizeh3,
                 color: "white",
                 marginBottom: "1vh",
                 padding: "0.8rem",
@@ -641,6 +642,64 @@ function Calendario() {
 }
 
 function AñadirEvento() {
+  let formData = {
+    title: "",
+    ubicacion: "",
+    start: "",
+    horario: "",
+    descripcion: "",
+  };
+
+  //Verifica si el texto es una URL
+  const esURL = (texto) => {
+    try {
+      new URL(texto);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita el envío tradicional del formulario
+
+    try {
+      // Construye el objeto evento para enviar al servidor
+      const evento = {
+        title: formData.title,
+        ubicacion: formData.ubicacion,
+        start: formData.start + (formData.horario ? "T" + formData.horario.split(" - ")[0] : ""),
+        end: formData.start + (formData.horario ? "T" + formData.horario.split(" - ")[1] : ""),
+        descripcion: formData.descripcion,
+        esEnlaceUbicacion: esURL(formData.ubicacion),
+      };
+
+      // Envía los datos al servidor Hono
+      const response = await m.request({
+        method: "POST",
+        url: "http://localhost:3000/calendario", // Asegúrate de que coincide con tu ruta en Hono
+        body: evento,
+      });
+
+      alert("Evento añadido correctamente!");
+      // Limpia el formulario después del envío
+      formData = {
+        title: "",
+        ubicacion: "",
+        start: "",
+        horario: "",
+        descripcion: "",
+      };
+    } catch (error) {
+      console.error("Error al añadir el evento:", error);
+      alert("Hubo un error al añadir el evento");
+    }
+  };
+
+  // Función para actualizar formData cuando cambian los inputs
+  const handleInputChange = (key, value) => {
+    formData[key] = value;
+  };
   return {
     oncreate: () => {
       window.scrollTo(0, 0);
@@ -685,8 +744,10 @@ function AñadirEvento() {
                 textAlign: "left",
                 gap: "15px",
               },
+              onsubmit: handleSubmit
             },
             [
+              //Titulo
               m(
                 "label",
                 {
@@ -703,6 +764,8 @@ function AñadirEvento() {
                 type: "text",
                 placeholder: "Escribe un nombre para tu actividad: ",
                 ariaLabel: "Escribe aquí un nombre para tu actividad: ",
+                value: formData.title,
+                oninput: (e) => handleInputChange("title", e.target.value),
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
@@ -724,6 +787,7 @@ function AñadirEvento() {
                   e.target.style.border = "2px solid #ccc";
                 },
               }),
+              //Ubicación
               m(
                 "label",
                 {
@@ -740,6 +804,8 @@ function AñadirEvento() {
                 type: "text",
                 placeholder: "Escribe donde quieres hacer tu actividad: ",
                 ariaLabel: "Escribe aquí la ubicación de tu actividad: ",
+                value: formData.ubicacion,
+                oninput: (e) => handleInputChange("ubicacion", e.target.value),
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
@@ -761,6 +827,7 @@ function AñadirEvento() {
                   e.target.style.border = "2px solid #ccc";
                 },
               }),
+              //Fecha
               m(
                 "label",
                 {
@@ -771,13 +838,15 @@ function AñadirEvento() {
                     fontSize: fontSizeh3,
                   },
                 },
-                "Inicio: "
+                "Fecha: "
               ),
               m("input", {
                 id: "fecha",
                 type: "date",
                 ariaLabel:
                   "Escribe aquí la fecha de tu actividad con formato día / número de mes / año",
+                  value: formData.start,
+                oninput: (e) => handleInputChange("start", e.target.value),
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
@@ -799,23 +868,28 @@ function AñadirEvento() {
                   e.target.style.border = "2px solid #ccc";
                 },
               }),
+              //Horario
               m(
                 "label",
                 {
-                  for: "fecha",
+                  for: "horario",
                   style: {
                     color: modoOscuroOff ? "black" : "white",
                     fontFamily: "monospace",
                     fontSize: fontSizeh3,
                   },
                 },
-                "Fin: "
+                "Hora: "
               ),
               m("input", {
-                id: "fecha",
-                type: "date",
+                id: "horario",
+                type: "text",
+                placeholder: "Ej. 09:00-15:00",
                 ariaLabel:
-                  "Escribe aquí la fecha de tu actividad con formato día / número de mes / año",
+                  "Escribe aquí qué horario va a tener la actividad con formato hora:minuto-hora:minuto",
+                value: formData.horario,
+                oninput: (e) => handleInputChange("horario", e.target.value),
+                
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
@@ -837,6 +911,7 @@ function AñadirEvento() {
                   e.target.style.border = "2px solid #ccc";
                 },
               }),
+              //Descripción
               m(
                 "label",
                 {
@@ -850,9 +925,11 @@ function AñadirEvento() {
                 "Descripción"
               ),
               m("textarea", {
-                name: "Describe tu actividad: ",
-                ariaLabel: "Describe aquí tu actividad",
                 id: "descripcion",
+                name: "Describe tu actividad: ",
+                value: formData.descripcion,
+                oninput: (e) => handleInputChange("descripcion", e.target.value),
+                ariaLabel: "Describe aquí tu actividad",
                 style: {
                   width: "100%",
                   padding: "0.8rem",
@@ -1179,6 +1256,56 @@ function BuzonDeSugerencias() {
                   },
                 },
                 "Enviar sugerencia"
+              ),
+              m(
+                "button",
+                {
+                  style: {
+                    fontSize: fontSizeh3,
+                    color: "white",
+                    marginBottom: "1vh",
+                    padding: "0.8rem",
+                    borderRadius: "30px",
+                    backgroundColor: "#6a131b",
+                    border: "none",
+                  },
+                  onfocus: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 1020,
+                      damping: 10,
+                      mass: 1.5,
+                      threshold: 0.01,
+                    });
+                  },
+                  onblur: (e) => {
+                    e.target.style.outline = "none";
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.color = "white";
+                  },
+                  onmouseenter: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 900,
+                      damping: 8,
+                      mass: 1.2,
+                      threshold: 0.01,
+                    });
+                  },
+                  onmouseleave: (e) => {
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.outline = "none";
+                    e.target.style.color = "white";
+                  },
+                  onclick: function () {
+                    m.route.set("/AñadirEvento");
+                  },
+                },
+                " Ver sugerencias"
               ),
             ]
           )
