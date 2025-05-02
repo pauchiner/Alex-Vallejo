@@ -10,7 +10,15 @@ const backgroundColorButton = "#BF0F1E3D";
 const accentColor = "#D42635";
 const blackColor = "#1B1B1B";
 
-let modoOscuroOn = JSON.parse(localStorage.getItem("modoOscuro")) || false;
+let modoOscuroOff = JSON.parse(localStorage.getItem("modoOscuro")) || false;
+
+//Inicio "Anchura Breackpoints"
+let width = window.innerWidth;
+const handleResize = () => {
+  width = window.innerWidth;
+  m.redraw();
+};
+window.addEventListener("resize", handleResize);
 
 /**
  * Animate a property (like scale) using a spring simulation.
@@ -57,336 +65,37 @@ function animateSpring(element, property, from, to, options = {}) {
 
   requestAnimationFrame(update);
 }
-
-///----------------LOGIN-----------------///
-function Login() {
-  return {
-    view: () => [
-      m(
-        "div",
-        {
-          style: {
-            height: "100vh",
-            width: "100vw",
-            backgroundImage: "url(imagenes/fondoLogin2.jpg)",
-            // backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          },
-        },
-        m(
-          "div",
-          {
-            style: {
-              width: "20%",
-              height: "20vh",
-              paddingBottom: "60px",
-            },
-          },
-          m("img", {
-            src: "imagenes/logoRecortado.webp",
-            style: { objectFit: "contain", width: "100%", height: "100%" },
-          })
-        ),
-        m(
-          "div",
-          {
-            style: {
-              backgroundColor: "rgba(255, 255, 255)",
-              padding: "2rem",
-              borderRadius: "30px",
-              boxShadow: "2px 4px 80px rgba(0, 0, 0, 0.2)",
-              width: "50vw",
-              maxWidth: "90%",
-            },
-          },
-          m(
-            "h2",
-            {
-              style: {
-                textAlign: "center",
-                fontFamily: "monospace",
-                marginBottom: "1.5rem",
-              },
-            },
-            "Bienvenido a Rebombori"
-          ),
-          [
-            m("form", [
-              m(
-                "div",
-                {
-                  style: {
-                    marginBottom: "1rem",
-                  },
-                },
-                [
-                  m(
-                    "label",
-                    {
-                      style: {
-                        display: "block",
-                        marginBottom: "0.5rem",
-                        marginLeft: "1.5rem",
-                        fontWeight: "bold",
-                      },
-                    },
-                    "Usuario"
-                  ),
-                  m("input", {
-                    type: "text",
-                    placeholder: "Ingrese su usuario",
-                    ariaLabel: "Nombre de usuario para inicio de sesión",
-                    style: {
-                      width: "100%",
-                      padding: "0.5rem",
-                      borderRadius: "4px",
-                      border: "1px solid #ccc",
-                    },
-                  }),
-                ]
-              ),
-              m(
-                "div",
-                {
-                  style: {
-                    marginBottom: "1.5rem",
-                  },
-                },
-                [
-                  m(
-                    "label",
-                    {
-                      style: {
-                        display: "block",
-                        marginBottom: "0.5rem",
-                        marginLeft: "1.5rem",
-                        fontWeight: "bold",
-                      },
-                    },
-                    "Contraseña AÑADIR VISIBLE/INVUISIB"
-                  ),
-                  m("input", {
-                    type: "password",
-                    placeholder: "Ingrese su contraseña",
-                    ariaLabel: "Contraseña para inicio de sesión",
-                    style: {
-                      width: "100%",
-                      padding: "0.5rem",
-                      borderRadius: "4px",
-                      border: "1px solid #ccc",
-                    },
-                  }),
-                ]
-              ),
-              m(
-                "button",
-                {
-                  type: "submit",
-                  ariaLabel: "Boton enviar de inicio de sesión",
-                  style: {
-                    width: "100%",
-                    padding: "0.75rem",
-                    backgroundColor: "#000000",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "30px",
-                    cursor: "pointer",
-                    fontSize: "1rem",
-                    transition: "all 0.3s ease",
-                  },
-                  onfocus: (e) =>
-                    (e.target.style.backgroundColor = accentColor),
-                  onblur: (e) => (e.target.style.backgroundColor = "#000000"),
-                },
-                "Continuar"
-              ),
-            ]),
-            m(
-              "div",
-              {
-                style: {
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: "12px",
-                },
-              },
-              m("p", "¿Aún no tienes cuenta?"),
-              m(
-                "a",
-                {
-                  href: "#",
-                  style: {},
-                },
-                "Regístrate"
-              )
-            ),
-          ]
-        )
-      ),
-    ],
-  };
-}
-
 ///-------------------HEADER------------------///
-function HeaderNormal() {
+function Header() {
   return {
     view: function () {
+      const currentRoute = m.route.get();
+      const enInicio = currentRoute === "/Inicio";
       return m(
-        "div",
+        "header",
         {
           style: {
-            backgroundColor: "#abb1ee",
-            width: "100%",
-            // height: alturaHeader,
-            minHeight: alturaRelativaHeader,
-            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.5)",
-            position: "fixed",
+            width: "100vw",
             display: "flex",
-            flexWrap: "row",
             justifyContent: "space-between",
+            alignItems: "center",
+            padding: "2rem 5vw 1rem 5vw",
+            boxSizing: "border-box",
           },
         },
-        m(
-          "div",
-          {
-            style: {
-              display: "flex",
-              flexWrap: "row",
-              alignItems: "center",
-            },
-          },
-          m("img", {
-            src: "img/logoPagina.png",
-            alt: "Logo principal",
-            style: {
-              height: "40px",
-              padding: "0 80px",
-            },
-          }),
-          m(
-            "div",
-            {
-              style: {
-                width: "100%",
-                display: "flex",
-                marginLeft: "100px",
-                gap: "30px",
-              },
-            },
-            m(
-              "a",
-              {
-                href: "#",
-                style: {
-                  textDecoration: "none",
-                  color: "black",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  whiteSpace: "nowrap",
-                },
-              },
-              "Página 1"
-            ),
-            m(
-              "a",
-              {
-                href: "#",
-                style: {
-                  textDecoration: "none",
-                  color: "black",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  whiteSpace: "nowrap",
-                },
-              },
-              "Página 2"
-            )
-          )
-        ),
-        m(
-          "div",
-          {
-            style: {
-              marginRight: "16px",
-              gap: "8px",
-              display: "flex",
-              flexWrap: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            },
-          },
-          m(
-            "a",
-            {
-              href: "https://www.instagram.com/",
-              target: "_blank",
-            },
-            m("img", {
-              src: "img/logoInstagram.svg",
-              alt: "Enlace a Instagram",
-              title: "Instagram",
-              style: {
-                height: "40px",
-                width: "40px",
-              },
-            })
-          ),
-          m(
-            "a",
-            {
-              href: "https://www.facebook.com/",
-              target: "_blank",
-            },
-            m("img", {
-              src: "img/logoFacebook.svg",
-              alt: "Logo Facebook",
-              title: "Facebook",
-              style: {
-                height: "40px",
-                width: "40px",
-              },
-            })
-          ),
-          m(
-            "a",
-            {
-              href: "https://www.linkedin.com/",
-              target: "_blank",
-            },
-            m("img", {
-              src: "img/logoLinkedin.svg",
-              alt: "Logo Linkedin",
-              title: "Linkedin",
-              style: {
-                height: "40px",
-                width: "40px",
-              },
-            })
-          )
-        )
+        [
+          [
+            !enInicio
+              ? m(botonAtras)
+              : m(".elementoInvisible", { style: { visibility: "hidden" } }), //Evita que aparezca el botón de volver al atrás
+            !enInicio
+              ? m(botonInicio)
+              : m(".elementoInvisible", { style: { visibility: "hidden" } }), //Evita que aparezca el botón de volver al inicio
+            m(botonModoOscuro),
+          ].filter(Boolean),
+        ]
       );
     },
-  };
-}
-
-function HeaderBlanco() {
-  return {
-    view: ({}) => [
-      m("div", {
-        style: {
-          width: "100%",
-          height: alturaRelativaHeader,
-          "box-sizing": "border-box",
-          backgroundColor: "white",
-        },
-      }),
-      "",
-    ],
   };
 }
 
@@ -396,21 +105,12 @@ function botonModoOscuro() {
       return m(
         "button",
         {
-          onclick: (e) => {
-            modoOscuroOn = !modoOscuroOn;
-            localStorage.setItem("modoOscuro", JSON.stringify(modoOscuroOn));
-            m.redraw();
-          },
           role: "switch",
-          ariaLabel: modoOscuroOn
+          ariaLabel: modoOscuroOff
             ? "Activar modo oscuro"
             : "Desactivar modo oscuro",
-          ariaChecked: modoOscuroOn,
-          ariaLive: "polite",
+          ariaChecked: modoOscuroOff,
           style: {
-            position: "absolute",
-            top: "5vh",
-            right: "5vw",
             borderRadius: "50%",
             backgroundColor: "transparent",
             border: "none",
@@ -418,10 +118,15 @@ function botonModoOscuro() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: "fit-content",
-            height: "fit-content",
+            width: "clamp(3rem, 6vw, 5rem)",
+            height: "clamp(3rem, 6vw, 5rem)",
             cursor: "pointer",
             transition: "all 0.1s ease",
+          },
+          onclick: () => {
+            modoOscuroOff = !modoOscuroOff;
+            localStorage.setItem("modoOscuro", JSON.stringify(modoOscuroOff));
+            m.redraw();
           },
           onfocus: (e) => {
             e.target.style.backgroundColor = backgroundColorButton;
@@ -435,22 +140,139 @@ function botonModoOscuro() {
             e.target.style.backgroundColor = backgroundColorButton;
             e.target.style.outline = `2px solid ${accentColor}`;
           },
-          onmouseleave: function (e) {
+          onmouseleave: (e) => {
             e.target.style.backgroundColor = "transparent";
             e.target.style.outline = "none";
           },
         },
         m("img", {
-          src: modoOscuroOn
-            ? "imagenes/modoOscuro.svg"
+          src: modoOscuroOff
+            ? "imagenes/luna2.svg"
             : "imagenes/modoOscuroBlanco.svg",
           style: {
-            width: "clamp(2rem, 5vw, 4rem)",
-            height: "auto",
-            aspectRatio: "1/1",
-            padding: "0.5rem",
+            width: "70%",
+            height: "70%",
+            objectFit: "contain",
           },
-          alt: modoOscuroOn ? "Activar modo oscuro" : "Activar modo claro",
+          alt: modoOscuroOff ? "Activar modo oscuro" : "Desactivar modo oscuro",
+        })
+      );
+    },
+  };
+}
+
+function botonInicio() {
+  return {
+    view: () => {
+      return m(
+        "button",
+        {
+          role: "switch",
+          ariaLabel: modoOscuroOff
+            ? "Activar modo oscuro"
+            : "Desactivar modo oscuro",
+          ariaChecked: modoOscuroOff,
+          style: {
+            borderRadius: "50%",
+            backgroundColor: "transparent",
+            border: "none",
+            padding: "0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "clamp(3rem, 6vw, 5rem)",
+            height: "clamp(3rem, 6vw, 5rem)",
+            cursor: "pointer",
+            alt: "Volver al inicio",
+          },
+          onclick: () => {
+            m.route.set("/Inicio");
+          },
+          onfocus: (e) => {
+            e.target.style.backgroundColor = backgroundColorButton;
+            e.target.style.outline = `2px solid ${accentColor}`;
+          },
+          onblur: (e) => {
+            e.target.style.outline = "none";
+            e.target.style.backgroundColor = "transparent";
+          },
+          onmouseenter: (e) => {
+            e.target.style.backgroundColor = backgroundColorButton;
+            e.target.style.outline = `2px solid ${accentColor}`;
+          },
+          onmouseleave: (e) => {
+            e.target.style.backgroundColor = "transparent";
+            e.target.style.outline = "none";
+          },
+        },
+        m("img", {
+          src: modoOscuroOff
+            ? "imagenes/inicio.svg"
+            : "imagenes/inicioBlanco.svg",
+          style: {
+            width: "70%",
+            height: "70%",
+            objectFit: "contain",
+          },
+        })
+      );
+    },
+  };
+}
+
+function botonAtras() {
+  return {
+    view: () => {
+      return m(
+        "button",
+        {
+          role: "switch",
+          ariaLabel: modoOscuroOff
+            ? "Activar modo oscuro"
+            : "Desactivar modo oscuro",
+          ariaChecked: modoOscuroOff,
+          style: {
+            borderRadius: "50%",
+            backgroundColor: "transparent",
+            border: "none",
+            padding: "0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "clamp(3rem, 6vw, 5rem)",
+            height: "clamp(3rem, 6vw, 5rem)",
+            cursor: "pointer",
+            alt: "Volver al inicio",
+          },
+          onclick: () => {
+            window.history.back();
+          },
+          onfocus: (e) => {
+            e.target.style.backgroundColor = backgroundColorButton;
+            e.target.style.outline = `2px solid ${accentColor}`;
+          },
+          onblur: (e) => {
+            e.target.style.outline = "none";
+            e.target.style.backgroundColor = "transparent";
+          },
+          onmouseenter: (e) => {
+            e.target.style.backgroundColor = backgroundColorButton;
+            e.target.style.outline = `2px solid ${accentColor}`;
+          },
+          onmouseleave: (e) => {
+            e.target.style.backgroundColor = "transparent";
+            e.target.style.outline = "none";
+          },
+        },
+        m("img", {
+          src: modoOscuroOff
+            ? "imagenes/volver.svg"
+            : "imagenes/volverBlanco.svg",
+          style: {
+            width: "70%",
+            height: "70%",
+            objectFit: "contain",
+          },
         })
       );
     },
@@ -474,7 +296,7 @@ function Inicio() {
       iconoModoOscuro: "imagenes/galeriaBlanco.svg",
       alt: "",
       title: "",
-      slug: "/Calendario",
+      slug: "",
     },
     {
       icono: "imagenes/buzon.svg",
@@ -482,7 +304,7 @@ function Inicio() {
       iconoModoOscuro: "imagenes/buzonBlanco.svg",
       alt: "",
       title: "",
-      slug: "/Calendario",
+      slug: "/Buzon",
     },
     {
       icono: "imagenes/anuncios.svg",
@@ -490,23 +312,26 @@ function Inicio() {
       iconoModoOscuro: "imagenes/anunciosBlanco.svg",
       alt: "",
       title: "",
-      slug: "/Calendario",
+      slug: "/Tablon",
     },
   ];
   return {
+    oncreate: () => {
+      window.scrollTo(0, 0);
+    },
     view: () => {
       return (
-        (document.body.style.backgroundColor = modoOscuroOn
+        (document.body.style.backgroundColor = modoOscuroOff
           ? "white"
           : blackColor),
         [
+          m(Header),
           m(
             "div",
             {
               style: {
                 postion: "relative",
                 backgroundColor: "transparent",
-                height: "100vh",
                 width: "100vw",
                 display: "flex",
                 flexDirection: "column",
@@ -515,30 +340,27 @@ function Inicio() {
               },
             },
             m(
-              "p",
+              "h1",
               {
                 style: {
                   fontSize: "3em",
-                  margin: "10vh 0 0 0",
                   textAlign: "center",
-                  color: modoOscuroOn ? "black" : "white",
+                  marginBottom: "3vh",
+                  color: modoOscuroOff ? "black" : "white",
                 },
               },
               "Bienvenido Usuario!"
             ),
-            m(botonModoOscuro),
             m(
               "main",
               {
                 style: {
-                  width: "60vw",
-                  height: "70vh",
-                  marginTop: "5vh",
                   padding: "15px",
                   display: "flex",
                   flexWrap: "wrap",
                   gap: "20px",
-                  marginBottom: "5vh",
+                  margin: "0 auto",
+                  maxWidth: "850px",
                   boxSizing: "border-box",
                   justifyContent: "center",
                 },
@@ -549,10 +371,8 @@ function Inicio() {
                   {
                     style: {
                       backgroundColor: backgroundColorButton,
-                      minWidth: "250px",
-                      minHeight: "220px",
-                      flex: "1 0 calc(50% - 10px)",
-                      height: "calc(50% - 5px)",
+                      minHeight: "300px",
+                      flex: window.innerWidth < 850 ? "0 0 300px" : "0 0 400px",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -560,7 +380,7 @@ function Inicio() {
                       fontSize: fontSizeh2,
                       padding: "10px",
                       border: `2px solid 
-                        ${modoOscuroOn ? "transparent" : accentColor}`,
+                        ${modoOscuroOff ? "transparent" : accentColor}`,
                       borderRadius: "30px",
                       cursor: "pointer",
                       boxSizing: "border-box",
@@ -611,7 +431,7 @@ function Inicio() {
                       },
                     },
                     m("img", {
-                      src: modoOscuroOn ? btn.icono : btn.iconoModoOscuro,
+                      src: modoOscuroOff ? btn.icono : btn.iconoModoOscuro,
                       alt: "Ir a " + btn.texto,
                       style: {
                         width: "100%",
@@ -625,7 +445,7 @@ function Inicio() {
                     {
                       style: {
                         fontSize: fontSizeh1,
-                        color: modoOscuroOn ? "black" : "white",
+                        color: modoOscuroOff ? "black" : "white",
                       },
                     },
                     btn.texto
@@ -645,7 +465,6 @@ function formatearFecha(fechaStr) {
   // Convertir la cadena a objeto Date
   const fecha = new Date(fechaStr);
 
-  // Arrays para traducir días de la semana y meses al español
   const dias = [
     "Domingo",
     "Lunes",
@@ -670,12 +489,10 @@ function formatearFecha(fechaStr) {
     "Diciembre",
   ];
 
-  // Obtener el nombre del día, día del mes y el nombre del mes
   const diaSemana = dias[fecha.getDay()];
   const dia = fecha.getDate();
   const mes = meses[fecha.getMonth()];
 
-  // Obtener la hora y minutos, agregando el 0 a la izquierda si es necesario
   let horas = fecha.getHours();
   let minutos = fecha.getMinutes();
   horas = horas < 10 ? "0" + horas : horas;
@@ -686,16 +503,23 @@ function formatearFecha(fechaStr) {
 }
 
 async function getEventos() {
-  const response = await fetch("http://localhost:3000/calendario");
-  const events = await response.json();
-  console.log(events);
-  return events;
+  try {
+    const response = await fetch("http://localhost:3000/calendario");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const events = await response.json();
+    console.log("Eventos recibidos:", events);
+    return events;
+  } catch (error) {
+    console.error("Error fetching eventos:", error);
+    return [];
+  }
 }
 
 function Calendario() {
   let calendar;
   return {
     oncreate: async () => {
+      window.scrollTo(0, 0);
       const calendarEl = document.getElementById("calendar");
       if (calendarEl) {
         calendar = new FullCalendar.Calendar(calendarEl, {
@@ -712,9 +536,9 @@ function Calendario() {
           events: await getEventos(),
           eventClick: (info) =>
             console.log(
-              `Evento: ${info.event.title}\nFecha: ${formatearFecha(
+              `Evento: ${info.event.title}\nFecha inicio: ${formatearFecha(
                 info.event.start
-              )}`
+              )}\nFecha fin: ${formatearFecha(info.event.end)}`
             ),
           dateClick: (info) => {
             const title = prompt("Nuevo evento:");
@@ -729,74 +553,126 @@ function Calendario() {
     },
 
     view: () => {
-      document.body.style.backgroundColor = modoOscuroOn ? "white" : blackColor;
+      document.body.style.backgroundColor = modoOscuroOff
+        ? "white"
+        : blackColor;
       return [
-        m(botonModoOscuro),
+        m(Header),
         m(
           "div",
           {
             style: {
-              height: "100vh",
-              width: "100vw",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              color: modoOscuroOn ? "black" : "white",
+              color: modoOscuroOff ? "black" : "white",
             },
           },
-          m("h1", { style: { marginBottom: "48px" } }, "Calendario"),
+          m(
+            "h1",
+            {
+              style: {
+                marginBottom: "1.5vh",
+                fontSize: "3em",
+              },
+            },
+            "Calendario"
+          ),
           m("div", {
             id: "calendar",
             style: {
-              margin: "0 2vw",
+              margin: "0 2%",
             },
-          })
+          }),
+          m(
+            "button",
+            {
+              style: {
+                color: "white",
+                marginBottom: "1vh",
+                padding: "0.8rem",
+                borderRadius: "30px",
+                backgroundColor: "#6a131b",
+                border: "none",
+              },
+              onfocus: (e) => {
+                e.target.style.backgroundColor = backgroundColorButton;
+                e.target.style.outline = `2px solid ${accentColor}`;
+                e.target.style.color = modoOscuroOff ? "black" : "white";
+                animateSpring(e.target, "scale", 1.05, 1, {
+                  stiffness: 1020,
+                  damping: 10,
+                  mass: 1.5,
+                  threshold: 0.01,
+                });
+              },
+              onblur: (e) => {
+                e.target.style.outline = "none";
+                e.target.style.backgroundColor = "#6a131b";
+                e.target.style.color = "white";
+              },
+              onmouseenter: (e) => {
+                e.target.style.backgroundColor = backgroundColorButton;
+                e.target.style.outline = `2px solid ${accentColor}`;
+                e.target.style.color = modoOscuroOff ? "black" : "white";
+                animateSpring(e.target, "scale", 1.05, 1, {
+                  stiffness: 900,
+                  damping: 8,
+                  mass: 1.2,
+                  threshold: 0.01,
+                });
+              },
+              onmouseleave: (e) => {
+                e.target.style.backgroundColor = "#6a131b";
+                e.target.style.outline = "none";
+                e.target.style.color = "white";
+              },
+              onclick: function () {
+                m.route.set("/AñadirEvento");
+              },
+            },
+            "Añadir evento"
+          )
         ),
       ];
     },
   };
 }
 
-///-------------------BUZON-------------------///
-function BuzonDeSugerencias() {
+function AñadirEvento() {
   return {
+    oncreate: () => {
+      window.scrollTo(0, 0);
+    },
     view: () => {
+      document.body.style.backgroundColor = modoOscuroOff
+        ? "white"
+        : blackColor;
       return [
-        (document.body.style.backgroundColor = modoOscuroOn
-          ? "white"
-          : blackColor),
-        m(botonModoOscuro),
+        m(Header),
         m(
           "h1",
           {
             style: {
-              position: "absolute",
-              top: "20vh",
-              color: modoOscuroOn ? "black" : "white",
+              fontSize: "3em",
+              color: modoOscuroOff ? "black" : "white",
               fontFamily: "monospace",
               textAlign: "center",
+              margin: "20px 0",
             },
           },
-          [
-            "Buzón de sugerencias",
-            m(
-              "h2",
-              {
-                style: { textAlign: "left" },
-              },
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-          ]
+          "Añade tu evento"
         ),
-
         m(
           "div",
           {
             style: {
-              width: "70vw",
+              width: "90%",
+              maxWidth: "800px",
+              margin: "0 auto",
+              padding: "20px",
               display: "flex",
-              margin: "0px 3vh",
               flexDirection: "column",
             },
           },
@@ -807,114 +683,247 @@ function BuzonDeSugerencias() {
                 display: "flex",
                 flexDirection: "column",
                 textAlign: "left",
+                gap: "15px",
               },
             },
             [
-              //-------Titulo---------
               m(
                 "label",
                 {
-                  for: "titulo",
+                  for: "Titulo",
                   style: {
-                    color: modoOscuroOn ? "black" : "white",
+                    color: modoOscuroOff ? "black" : "white",
                     fontFamily: "monospace",
-                    margin: "10px",
                     fontSize: fontSizeh3,
                   },
                 },
-                "Escribe aquí un nombre para tu actividad: "
+                "Título"
               ),
               m("input", {
                 type: "text",
-                placeholder: "Ej. Día de cine",
+                placeholder: "Escribe un nombre para tu actividad: ",
+                ariaLabel: "Escribe aquí un nombre para tu actividad: ",
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
-                  padding: "0.5rem",
+                  padding: "0.8rem",
                   borderRadius: "30px",
-                  border: "1px solid #ccc",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
                 },
               }),
-
-              //-------Ubicacion---------
               m(
                 "label",
                 {
                   for: "ubicacion",
                   style: {
-                    color: modoOscuroOn ? "black" : "white",
+                    color: modoOscuroOff ? "black" : "white",
                     fontFamily: "monospace",
-                    margin: "10px",
                     fontSize: fontSizeh3,
                   },
                 },
-                "Escribe aquí la ubicación de tu actividad: "
+                "Ubicación"
               ),
               m("input", {
                 type: "text",
-                placeholder:
-                  "Calle Guillem de Castro, 42, 46007, Valencia, Valencia",
+                placeholder: "Escribe donde quieres hacer tu actividad: ",
+                ariaLabel: "Escribe aquí la ubicación de tu actividad: ",
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
-                  padding: "0.5rem",
+                  padding: "0.8rem",
                   borderRadius: "30px",
-                  border: "1px solid #ccc",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
                 },
               }),
-
-              //-------Fecha---------
               m(
                 "label",
                 {
                   for: "fecha",
                   style: {
-                    color: modoOscuroOn ? "black" : "white",
+                    color: modoOscuroOff ? "black" : "white",
                     fontFamily: "monospace",
-                    margin: "10px",
                     fontSize: fontSizeh3,
                   },
                 },
-                "Escribe aquí la fecha (formato día/mes/año)"
+                "Inicio: "
               ),
               m("input", {
                 id: "fecha",
                 type: "date",
-                placeholder: "Ej: 01/01/2000",
+                ariaLabel:
+                  "Escribe aquí la fecha de tu actividad con formato día / número de mes / año",
                 style: {
                   fontFamily: "monospace",
                   width: "100%",
-                  padding: "0.5rem",
+                  padding: "0.8rem",
                   borderRadius: "30px",
-                  border: "1px solid #ccc",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
                 },
               }),
-
-              //-------Descripción---------
+              m(
+                "label",
+                {
+                  for: "fecha",
+                  style: {
+                    color: modoOscuroOff ? "black" : "white",
+                    fontFamily: "monospace",
+                    fontSize: fontSizeh3,
+                  },
+                },
+                "Fin: "
+              ),
+              m("input", {
+                id: "fecha",
+                type: "date",
+                ariaLabel:
+                  "Escribe aquí la fecha de tu actividad con formato día / número de mes / año",
+                style: {
+                  fontFamily: "monospace",
+                  width: "100%",
+                  padding: "0.8rem",
+                  borderRadius: "30px",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
+                },
+              }),
               m(
                 "label",
                 {
                   for: "descripcion",
                   style: {
-                    color: modoOscuroOn ? "black" : "white",
+                    color: modoOscuroOff ? "black" : "white",
                     fontFamily: "monospace",
-                    margin: "10px",
                     fontSize: fontSizeh3,
                   },
                 },
-                "Describe aquí tu actividad: "
+                "Descripción"
               ),
               m("textarea", {
-                name: "descripcion",
+                name: "Describe tu actividad: ",
+                ariaLabel: "Describe aquí tu actividad",
                 id: "descripcion",
                 style: {
                   width: "100%",
-                  fontFamily: "monospace",
-                  padding: "0.5rem",
+                  padding: "0.8rem",
                   borderRadius: "30px",
-                  border: "1px solid #ccc",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                  minHeight: "150px",
+                  resize: "vertical",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
                 },
               }),
+              m(
+                "button",
+                {
+                  type: "submit",
+                  style: {
+                    fontSize: fontSizeh3,
+                    padding: "0.8rem",
+                    borderRadius: "30px",
+                    border: "none",
+                    backgroundColor: "#6a131b",
+                    color: "white",
+                    cursor: "pointer",
+                    marginTop: "10px",
+                  },
+                  onfocus: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 1020,
+                      damping: 10,
+                      mass: 1.5,
+                      threshold: 0.01,
+                    });
+                  },
+                  onblur: (e) => {
+                    e.target.style.outline = "none";
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.color = "white";
+                  },
+                  onmouseenter: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 900,
+                      damping: 8,
+                      mass: 1.2,
+                      threshold: 0.01,
+                    });
+                  },
+                  onmouseleave: (e) => {
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.outline = "none";
+                    e.target.style.color = "white";
+                  },
+                },
+                "Enviar sugerencia"
+              ),
             ]
           )
         ),
@@ -923,4 +932,280 @@ function BuzonDeSugerencias() {
   };
 }
 
-export { BuzonDeSugerencias, Inicio, Calendario };
+///-------------------BUZON-------------------///
+function BuzonDeSugerencias() {
+  return {
+    oncreate: () => {
+      window.scrollTo(0, 0);
+    },
+    view: () => {
+      document.body.style.backgroundColor = modoOscuroOff
+        ? "white"
+        : blackColor;
+      return [
+        m(Header),
+        m(
+          "h1",
+          {
+            style: {
+              fontSize: "3em",
+              color: modoOscuroOff ? "black" : "white",
+              fontFamily: "monospace",
+              textAlign: "center",
+              margin: "20px 0",
+            },
+          },
+          "Buzón de sugerencias"
+        ),
+        m(
+          "div",
+          {
+            style: {
+              width: "90%",
+              maxWidth: "800px",
+              margin: "0 auto",
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+            },
+          },
+          m(
+            "form",
+            {
+              style: {
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "left",
+                gap: "15px",
+              },
+            },
+            [
+              m(
+                "label",
+                {
+                  for: "Titulo",
+                  style: {
+                    color: modoOscuroOff ? "black" : "white",
+                    fontFamily: "monospace",
+                    fontSize: fontSizeh3,
+                  },
+                },
+                "Título"
+              ),
+              m("input", {
+                type: "text",
+                placeholder: "Escribe un nombre para tu actividad: ",
+                ariaLabel: "Escribe aquí un nombre para tu actividad: ",
+                style: {
+                  fontFamily: "monospace",
+                  width: "100%",
+                  padding: "0.8rem",
+                  borderRadius: "30px",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
+                },
+              }),
+              m(
+                "label",
+                {
+                  for: "ubicacion",
+                  style: {
+                    color: modoOscuroOff ? "black" : "white",
+                    fontFamily: "monospace",
+                    fontSize: fontSizeh3,
+                  },
+                },
+                "Ubicación"
+              ),
+              m("input", {
+                type: "text",
+                placeholder: "Escribe donde quieres hacer tu actividad: ",
+                ariaLabel: "Escribe aquí la ubicación de tu actividad: ",
+                style: {
+                  fontFamily: "monospace",
+                  width: "100%",
+                  padding: "0.8rem",
+                  borderRadius: "30px",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
+                },
+              }),
+              m(
+                "label",
+                {
+                  for: "fecha",
+                  style: {
+                    color: modoOscuroOff ? "black" : "white",
+                    fontFamily: "monospace",
+                    fontSize: fontSizeh3,
+                  },
+                },
+                "Fecha: "
+              ),
+              m("input", {
+                id: "ubicacion",
+                type: "date",
+                placeholder: "Escribe cuando quieres hacer tu actividad: ",
+                ariaLabel:
+                  "Escribe aquí la fecha de tu actividad con formato día / número de mes / año",
+                style: {
+                  fontFamily: "monospace",
+                  width: "100%",
+                  padding: "0.8rem",
+                  borderRadius: "30px",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
+                },
+              }),
+              m(
+                "label",
+                {
+                  for: "descripcion",
+                  style: {
+                    color: modoOscuroOff ? "black" : "white",
+                    fontFamily: "monospace",
+                    fontSize: fontSizeh3,
+                  },
+                },
+                "Descripción"
+              ),
+              m("textarea", {
+                name: "Describe tu actividad: ",
+                ariaLabel: "Describe aquí tu actividad",
+                id: "descripcion",
+                style: {
+                  width: "100%",
+                  padding: "0.8rem",
+                  borderRadius: "30px",
+                  border: "2px solid #ccc",
+                  boxSizing: "border-box",
+                  minHeight: "150px",
+                  resize: "vertical",
+                },
+                onfocus: (e) => {
+                  e.target.style.backgroundColor = backgroundColorButton;
+                  e.target.style.outline = "none";
+                  e.target.style.color = modoOscuroOff ? "black" : "white";
+                  e.target.style.border = `2px solid ${accentColor}`;
+                },
+                onblur: (e) => {
+                  e.target.style.backgroundColor = "#FFFFFF";
+                  e.target.style.outline = "none";
+                  e.target.style.color = "black";
+                  e.target.style.border = "2px solid #ccc";
+                },
+              }),
+              m(
+                "button",
+                {
+                  type: "submit",
+                  style: {
+                    fontSize: fontSizeh3,
+                    padding: "0.8rem",
+                    borderRadius: "30px",
+                    border: "none",
+                    backgroundColor: "#6a131b",
+                    color: "white",
+                    cursor: "pointer",
+                    marginTop: "10px",
+                  },
+                  onfocus: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 1020,
+                      damping: 10,
+                      mass: 1.5,
+                      threshold: 0.01,
+                    });
+                  },
+                  onblur: (e) => {
+                    e.target.style.outline = "none";
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.color = "white";
+                  },
+                  onmouseenter: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 900,
+                      damping: 8,
+                      mass: 1.2,
+                      threshold: 0.01,
+                    });
+                  },
+                  onmouseleave: (e) => {
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.outline = "none";
+                    e.target.style.color = "white";
+                  },
+                },
+                "Enviar sugerencia"
+              ),
+            ]
+          )
+        ),
+      ];
+    },
+  };
+}
+
+function TablonDeAnuncios() {
+  return {
+    oncreate: () => {
+      window.scrollTo(0, 0);
+    },
+    view: () => {
+      document.body.style.backgroundColor = modoOscuroOff
+        ? "white"
+        : blackColor;
+      return [m(Header)];
+    },
+  };
+}
+
+export {
+  BuzonDeSugerencias,
+  Inicio,
+  Calendario,
+  AñadirEvento,
+  TablonDeAnuncios,
+};
