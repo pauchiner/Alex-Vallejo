@@ -1,10 +1,12 @@
 // import { Main } from "./components.js"
 import {
+  Login,
   BuzonDeSugerencias,
+  Sugerencias,
   Inicio,
   Calendario,
-  AñadirEvento,
-  TablonDeAnuncios,
+  AñadirActividad,
+  Documentos,
 } from "./components.js";
 
 /* function Layout() {
@@ -19,14 +21,15 @@ import {
 } */
 
 const routes = {
-  // "/Inicio": { view: () =>  m(Main)},
+  "/Login": { view: () => m(Login) },
   "/Inicio": { view: () => m(Inicio) },
   "/Buzon": { view: () => m(BuzonDeSugerencias) },
+  "/Sugerencias": { view: () => m(Sugerencias) },
   "/Calendario": { view: () => m(Calendario) },
-  "/Tablon": { view: () => m(TablonDeAnuncios) },
-  "/AñadirEvento": { view: () => m(AñadirEvento) },
+  "/Documentos": { view: () => m(Documentos) },
+  "/AñadirActividad": { view: () => m(AñadirActividad) },
 
   // "/Posts/:href": {view: ({attrs}) => m(PostAUX, attrs)},
 };
 
-m.route(document.body, "/Inicio", routes);
+m.route(document.body, "/Login", routes);
