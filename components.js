@@ -582,7 +582,7 @@ function Inicio() {
       iconoModoOscuro: "imagenes/galeriaBlanco.svg",
       alt: "",
       titulo: "",
-      slug: "",
+      slug: "/Galeria",
     },
     {
       icono: "imagenes/buzon.svg",
@@ -933,7 +933,7 @@ function Calendario() {
               style: {
                 fontSize: fontSizeh3,
                 color: "white",
-                marginBottom: "1vh",
+                margin: "2vh auto",
                 padding: "0.8rem",
                 borderRadius: "30px",
                 backgroundColor: "#6a131b",
@@ -1281,159 +1281,103 @@ function AñadirActividad() {
                 },
               }),
               m(
-                "div",
+                "button",
                 {
                   style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "10px",
-                    alignItems: "center",
+                    fontSize: fontSizeh3,
+                    color: "white",
+                    margin: "2vh auto",
+                    padding: "0.8rem",
+                    borderRadius: "30px",
+                    backgroundColor: "#6a131b",
+                    border: "none",
+                  },
+                  onfocus: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 1020,
+                      damping: 10,
+                      mass: 1.5,
+                      threshold: 0.01,
+                    });
+                  },
+                  onblur: (e) => {
+                    e.target.style.outline = "none";
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.color = "white";
+                  },
+                  onmouseenter: (e) => {
+                    e.target.style.backgroundColor = backgroundColorButton;
+                    e.target.style.outline = `2px solid ${accentColor}`;
+                    e.target.style.color = modoOscuroOff ? "black" : "white";
+                    animateSpring(e.target, "scale", 1.05, 1, {
+                      stiffness: 900,
+                      damping: 8,
+                      mass: 1.2,
+                      threshold: 0.01,
+                    });
+                  },
+                  onmouseleave: (e) => {
+                    e.target.style.backgroundColor = "#6a131b";
+                    e.target.style.outline = "none";
+                    e.target.style.color = "white";
+                  },
+                  onclick: function () {
+                    //Añade la actividad
                   },
                 },
-                [
-                  m(
-                    "label",
-                    {
-                      style: {
-                        fontSize: fontSizeh3,
-                        color: modoOscuroOff ? "black" : "white",
-                        fontFamily: "monospace",
-                        textAlign: "center",
-                      },
-                    },
-                    "Subir nuevo documento"
-                  ),
-                  m(
-                    "div",
-                    {
-                      style: {
-                        position: "relative",
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      },
-                    },
-                    [
-                      m("input", {
-                        type: "file",
-                        onchange: handleFileSelect,
-                        style: {
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          opacity: 0,
-                          cursor: "pointer",
-                          zIndex: 2,
-                        },
-                      }),
-                      m(
-                        "div",
-                        {
-                          style: {
-                            backgroundColor: backgroundColorButton,
-                            padding: "0.8rem",
-                            borderRadius: "30px",
-                            border: `2px solid ${
-                              modoOscuroOff ? "#ccc" : accentColor
-                            }`,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: "10px",
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            width: "fit-content",
-                            minWidth: "200px",
-                          },
-                        },
-                        [
-                          m("img", {
-                            src: modoOscuroOff
-                              ? "imagenes/subir.svg"
-                              : "imagenes/subirBlanco.svg",
-                            alt: "Subir archivo",
-                            style: {
-                              width: "24px",
-                              height: "24px",
-                            },
-                          }),
-                          m(
-                            "span",
-                            {
-                              style: {
-                                fontSize: fontSizeh3,
-                                color: modoOscuroOff ? "black" : "white",
-                                fontFamily: "monospace",
-                                textAlign: "center",
-                                whiteSpace: "nowrap",
-                              },
-                            },
-                            archivoSeleccionado
-                              ? archivoSeleccionado.name
-                              : "Seleccionar archivo"
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                  m(
-                    "button",
-                    {
-                      type: "submit",
-                      style: {
-                        fontSize: fontSizeh3,
-                        padding: "0.8rem",
-                        borderRadius: "30px",
-                        border: "none",
-                        backgroundColor: "#6a131b",
-                        color: "white",
-                        cursor: "pointer",
-                        width: "fit-content",
-                        margin: "0 auto",
-                      },
-                      onfocus: (e) => {
-                        e.target.style.backgroundColor = backgroundColorButton;
-                        e.target.style.outline = `2px solid ${accentColor}`;
-                        e.target.style.color = modoOscuroOff
-                          ? "black"
-                          : "white";
-                        animateSpring(e.target, "scale", 1.05, 1, {
-                          stiffness: 1020,
-                          damping: 10,
-                          mass: 1.5,
-                          threshold: 0.01,
-                        });
-                      },
-                      onblur: (e) => {
-                        e.target.style.outline = "none";
-                        e.target.style.backgroundColor = "#6a131b";
-                        e.target.style.color = "white";
-                      },
-                      onmouseenter: (e) => {
-                        e.target.style.backgroundColor = backgroundColorButton;
-                        e.target.style.outline = `2px solid ${accentColor}`;
-                        e.target.style.color = modoOscuroOff
-                          ? "black"
-                          : "white";
-                        animateSpring(e.target, "scale", 1.05, 1, {
-                          stiffness: 900,
-                          damping: 8,
-                          mass: 1.2,
-                          threshold: 0.01,
-                        });
-                      },
-                      onmouseleave: (e) => {
-                        e.target.style.backgroundColor = "#6a131b";
-                        e.target.style.outline = "none";
-                        e.target.style.color = "white";
-                      },
-                    },
-                    "Subir archivo"
-                  ),
-                ]
+                "Añadir actividad"
               ),
             ]
           )
+        ),
+      ];
+    },
+  };
+}
+
+///-------------------GALERIA-------------------///
+function Galeria() {
+  return {
+    oncreate: () => {
+      window.scrollTo(0, 0);
+    },
+    view: () => {
+      document.body.style.backgroundColor = modoOscuroOff
+        ? "white"
+        : blackColor;
+      return [
+        m(Header),
+        m(
+          "h1",
+          {
+            style: {
+              fontSize: "3em",
+              color: modoOscuroOff ? "black" : "white",
+              fontFamily: "monospace",
+              textAlign: "center",
+              margin: "20px 0",
+            },
+          },
+          "Galería"
+        ),
+        m(
+          "p",
+          {
+            style: {
+              fontSize: fontSizeh3,
+              color: modoOscuroOff ? "black" : "white",
+              fontFamily: "monospace",
+              textAlign: "left",
+              margin: "0 auto",
+              maxWidth: "800px",
+              width: "90%",
+              lineHeight: "1.6",
+            },
+          },
+          "Aquí puedes ver las fotos de las actividades que hemos realizado."
         ),
       ];
     },
@@ -2191,8 +2135,8 @@ function getDocumentosUsuario(usuarioActual) {
   return [
     {
       id: 1,
-      nombre: "Documento1.pdf",
-      fechaSubida: "2024-03-15T10:30:00Z",
+      nombre: "Documentosdfsfsdfsdfsdfsdfsdfsdfsd1.pdf",
+      fechaSubida: "2024-03-15",
       usuario: usuarioActual,
     },
     {
@@ -2266,8 +2210,8 @@ function Documentos() {
             style: {
               width: "90%",
               maxWidth: "800px",
-              margin: "0 auto",
-              padding: "20px",
+              margin: "2vh  auto",
+              // padding: "20px",
               display: "flex",
               flexDirection: "column",
               gap: "20px",
@@ -2444,6 +2388,7 @@ function Documentos() {
               m(
                 "div",
                 {
+                  class: "1111",
                   style: {
                     backgroundColor: backgroundColorButton,
                     padding: "20px",
@@ -2452,19 +2397,15 @@ function Documentos() {
                       modoOscuroOff ? "transparent" : accentColor
                     }`,
                     display: "flex",
-                    flexDirection: window.innerWidth <= 600 ? "column" : "row",
                     justifyContent: "space-between",
-                    alignItems:
-                      window.innerWidth <= 600 ? "flex-start" : "center",
-                    gap: window.innerWidth <= 600 ? "15px" : "0",
                     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
-                    width: "100%",
                   },
                 },
                 [
                   m(
                     "div",
                     {
+                      class: "2222",
                       style: {
                         display: "flex",
                         flexDirection:
@@ -2542,8 +2483,8 @@ function Documentos() {
                     },
                     m("img", {
                       src: modoOscuroOff
-                        ? "imagenes/papelera.svg"
-                        : "imagenes/papeleraBlanco.svg",
+                        ? "imagenes/borrar.svg"
+                        : "imagenes/borrarBlanco.svg",
                       alt: "Borrar documento",
                       style: {
                         width: "24px",
@@ -2569,4 +2510,5 @@ export {
   Calendario,
   AñadirActividad,
   Documentos,
+  Galeria,
 };

@@ -7,6 +7,7 @@ import {
   Calendario,
   AñadirActividad,
   Documentos,
+  Galeria
 } from "./components.js";
 
 /* function Layout() {
@@ -28,7 +29,7 @@ const routes = {
   "/Calendario": { view: () => m(Calendario) },
   "/Documentos": { view: () => m(Documentos) },
   "/AñadirActividad": { view: () => m(AñadirActividad) },
-
+  "/Galeria": { view: () => m(Galeria) },
   // "/Posts/:href": {view: ({attrs}) => m(PostAUX, attrs)},
 };
 
