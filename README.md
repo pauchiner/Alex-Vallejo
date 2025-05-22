@@ -15,6 +15,7 @@ npm install
 2. Variables de entorno
 ```bash
 nano apps/api/.env
+nano apps/web/.env
 ```
 
 Aquí rellenaremos las variables siguiendo la plantilla del archivo `.env.example` ubicado en el mismo directorio
