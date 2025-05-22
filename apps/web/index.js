@@ -1,36 +1,21 @@
-// import { Main } from "./components.js"
-import {
-  Login,
-  BuzonDeSugerencias,
-  Sugerencias,
-  Inicio,
-  Calendario,
-  AñadirActividad,
-  Documentos,
-  Galeria
-} from "./components.js";
-
-/* function Layout() {
-    return {
-        view: ({children}) => [
-            m("header"),
-            m("main"),
-            children,
-            m("aside")
-        ]
-    }
-} */
+import {Buzon} from './src/pages/buzon';
+import {Login} from './src/pages/login';
+import {Inicio} from './src/pages/inicio';
+import {Galeria} from './src/pages/galeria';
+import {Calendario} from './src/pages/calendario';
+import {Documentos} from './src/pages/documentos';
+import {Sugerencias} from './src/pages/sugerencias';
+import {AñadirActividad} from './src/pages/añadir-actividad';
 
 const routes = {
-  "/Login": { view: () => m(Login) },
-  "/Inicio": { view: () => m(Inicio) },
-  "/Buzon": { view: () => m(BuzonDeSugerencias) },
-  "/Sugerencias": { view: () => m(Sugerencias) },
-  "/Calendario": { view: () => m(Calendario) },
-  "/Documentos": { view: () => m(Documentos) },
-  "/AñadirActividad": { view: () => m(AñadirActividad) },
-  "/Galeria": { view: () => m(Galeria) },
-  // "/Posts/:href": {view: ({attrs}) => m(PostAUX, attrs)},
+  '/Login': {view: () => m(Login)},
+  '/Buzon': {view: () => m(Buzon)},
+  '/Inicio': {view: () => m(Inicio)},
+  '/Galeria': {view: () => m(Galeria)},
+  '/Calendario': {view: () => m(Calendario)},
+  '/Documentos': {view: () => m(Documentos)},
+  '/Sugerencias': {view: () => m(Sugerencias)},
+  '/AñadirActividad': {view: () => m(AñadirActividad)}
 };
 
-m.route(document.body, "/Login", routes);
+m.route(document.body, '/Login', routes);
