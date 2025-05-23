@@ -17,18 +17,18 @@ export const Layout = {
       const {error, data, isPending} = session;
       let authenticated = false;
 
-      if (!error && !isPending && data?.session) {
+      if (!error && data?.session) {
         authenticated = true;
       }
 
       const currentRoute = m.route.get();
 
-      if (currentRoute === '/Login' && authenticated) {
+      if (currentRoute === '/Login' && authenticated && !isPending) {
         m.route.set('/Inicio');
         m.redraw();
       }
 
-      if (currentRoute !== '/Login' && !authenticated) {
+      if (currentRoute !== '/Login' && !authenticated && !isPending) {
         m.route.set('/Login');
         m.redraw();
       }
