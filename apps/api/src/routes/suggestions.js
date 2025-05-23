@@ -2,7 +2,6 @@ import {Hono} from 'hono';
 
 const suggestions = new Hono();
 
-
 suggestions.get('/', async c => {
   const authorized = await auth.api.getSession({
     headers: c.req.raw.headers
@@ -25,8 +24,8 @@ suggestions.get('/', async c => {
       start: event.start_date,
       ubicacion: event.location,
       descripcion: event.description
-    }
-  })
+    };
+  });
 
   return c.json(result);
 
@@ -89,15 +88,13 @@ suggestions.post('/', async c => {
   // IIMPORTANTE, SI NO VAS A MORIR !!!!
 
   // Aquí guardas en una base de datos
-  database
-    .insert(schema.suggestions)
-    .values({
-      title: nuevoEvento.titulo ?? "",
-      location: nuevoEvento.ubicacion ?? "",
-      start_date: nuevoEvento.fecha ?? Date.now().toString(),
-      hour: nuevoEvento.hora ?? "",
-      description: nuevoEvento.descripcion ?? "",
-    })
+  database.insert(schema.suggestions).values({
+    title: nuevoEvento.titulo ?? '',
+    location: nuevoEvento.ubicacion ?? '',
+    start_date: nuevoEvento.fecha ?? Date.now().toString(),
+    hour: nuevoEvento.hora ?? '',
+    description: nuevoEvento.descripcion ?? ''
+  });
 
   return c.json({
     success: true,

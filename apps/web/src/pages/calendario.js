@@ -1,19 +1,19 @@
-import { modoOscuroOff, fontSizeh3 } from '../lib/constants';
-import { Layout } from '../components/layout';
-import { Button } from '../components/button';
-import { getSession } from '../lib/auth';
+import {modoOscuroOff, fontSizeh3} from '../lib/constants';
+import {Layout} from '../components/layout';
+import {Button} from '../components/button';
+import {getSession} from '../lib/auth';
 
 async function getActividades() {
   try {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/calendar`);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendar`);
 
-  if(!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-  const events = await response.json();
+    const events = await response.json();
 
-  return events;
+    return events;
   } catch (error) {
     console.error('Error fetching actividades:', error);
     return [];
@@ -22,11 +22,11 @@ async function getActividades() {
 
 export function Calendario() {
   let calendar;
-  let role = "user";
+  let role = 'user';
   return {
     oninit: async () => {
       const session = await getSession();
-      role = session.role ?? "user";
+      role = session.role ?? 'user';
       m.redraw();
     },
     oncreate: async () => {
@@ -42,15 +42,17 @@ export function Calendario() {
           buttonText: {
             today: 'Hoy'
           },
-          headerToolbar: { left: '', center: 'title', right: '' },
-          footerToolbar: { left: 'today', center: '', right: 'prev,next' },
-          events: await getActividades(),
+          headerToolbar: {left: '', center: 'title', right: ''},
+          footerToolbar: {left: 'today', center: '', right: 'prev,next'},
+          events: await getActividades()
         });
         calendar.render();
       }
     },
     onremove: () => {
-      if (calendar) { calendar.destroy(); }
+      if (calendar) {
+        calendar.destroy();
+      }
     },
 
     view: () =>
@@ -93,9 +95,9 @@ export function Calendario() {
                 padding: '0.8rem',
                 margin: '2vh auto',
                 borderRadius: '30px',
-                visibility: role === 'admin' ? "visible" : "hidden",
+                visibility: role === 'admin' ? 'visible' : 'hidden',
                 backgroundColor: '#6a131b'
-              },
+              }
             },
             'Añadir actividad'
           )

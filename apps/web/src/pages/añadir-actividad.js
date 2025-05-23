@@ -56,8 +56,8 @@ export function AñadirActividad() {
   return {
     oninit: async () => {
       const session = await getSession();
-      if(session.role !== "admin") {
-        m.route.set("/Inicio");
+      if (session.role !== 'admin') {
+        m.route.set('/Inicio');
         return;
       }
     },

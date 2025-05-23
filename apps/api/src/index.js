@@ -28,9 +28,8 @@ app.on(['GET', 'POST'], '/api/auth/*', c => {
   return auth.handler(c.req.raw);
 });
 
-
 /*Upload thing
-*/
+ */
 
 app.get('/', c => c.text('Bienvenido a la api!!'));
 app.route('/calendar', calendar);

@@ -27,8 +27,8 @@ calendar.get('/', async c => {
       start: event.start_date,
       ubicacion: event.location,
       descripcion: event.description
-    }
-  })
+    };
+  });
 
   return c.json(result);
 
@@ -85,7 +85,7 @@ calendar.post('/', async c => {
     return c.json({error: 'Inicia sesión para continuar.'}, 401);
   }
 
-  if(authorized.user.role !== 'admin') {
+  if (authorized.user.role !== 'admin') {
     return c.json({error: 'No tienes permisos para hacer esta acción.'}, 401);
   }
 
@@ -95,15 +95,13 @@ calendar.post('/', async c => {
   // IIMPORTANTE, SI NO VAS A MORIR !!!!
 
   // Aquí guardas en una base de datos
-  database
-    .insert(schema.calendar)
-    .values({
-      title: nuevoEvento.titulo ?? "",
-      location: nuevoEvento.ubicacion ?? "",
-      start_date: nuevoEvento.fecha ?? Date.now().toString(),
-      hour: nuevoEvento.hora ?? "",
-      description: nuevoEvento.descripcion ?? "",
-    })
+  database.insert(schema.calendar).values({
+    title: nuevoEvento.titulo ?? '',
+    location: nuevoEvento.ubicacion ?? '',
+    start_date: nuevoEvento.fecha ?? Date.now().toString(),
+    hour: nuevoEvento.hora ?? '',
+    description: nuevoEvento.descripcion ?? ''
+  });
 
   return c.json({
     success: true,
