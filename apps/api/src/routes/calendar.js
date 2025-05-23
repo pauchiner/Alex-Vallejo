@@ -11,7 +11,7 @@ calendar.get('/', async c => {
   });
 
   if (!authorized || !authorized.session || authorized.user) {
-    return c.json({error: 'No estás logeado!!!! &miau)'}, 401);
+    return c.json({error: 'No estás logeado!!!!)'}, 401);
   }
 
   const resultado = await database.query.calendar.findMany({});
