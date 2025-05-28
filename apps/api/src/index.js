@@ -1,5 +1,6 @@
 // Imports de hono
-import {serve} from '@hono/node-server';
+//import {serve} from '@hono/node-server';
+import { handle } from 'hono/vercel'
 import {cors} from 'hono/cors';
 import {auth} from './lib/auth';
 import {Hono} from 'hono';
@@ -36,12 +37,10 @@ app.route('/calendar', calendar);
 app.route('/documents', documents);
 app.route('/suggestions', suggestions);
 
-serve(
-  {
-    fetch: app.fetch,
-    port: process.env.PORT ?? 3000
-  },
-  info => {
-    console.info(`Server is running on http://localhost:${info.port}`);
-  }
-);
+const handler = handle(app);
+
+export const GET = handler;
+export const POST = handler;
+export const PATCH = handler;
+export const PUT = handler;
+export const OPTIONS = handler;
